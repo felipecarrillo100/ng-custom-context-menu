@@ -29,12 +29,12 @@ export class TestButtonsComponent {
     {title: "SubMenu 1", action: undefined, children: [
         {title: "Paste as HTML", action: ()=>{} },
         {title: "Paste unformatted", action: ()=>{}},
-        {title: "SubMenu 3", action: undefined, children: [
+        {title: "Paste special", action: undefined, children: [
             {title: "A", action: ()=>{}},
             {title: "B", action: ()=>{}},
           ]},
       ]},
-    {title: "SubMenu 2", action: undefined, children: [
+    {title: "Duplicate", action: undefined, children: [
         { title: "Duplicate", action: ()=>{}},
         { title: "Delete", action: ()=>{}},
       ]}
@@ -45,8 +45,8 @@ export class TestButtonsComponent {
     {title: "Run", action: ()=>{}},
     {title: "Debug", action: ()=>{}},
     {title: "Build", action: undefined, children: [
-        {title: "Paste as HTML", action: ()=>{} },
-        {title: "Paste unformatted", action: ()=>{}},
+        {title: "Build Project", action: ()=>{} },
+        {title: "Rebuild", action: ()=>{}},
       ]}
   ];
 
