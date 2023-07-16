@@ -1,13 +1,7 @@
 import { Component, Input, QueryList, ViewChildren, ViewChild} from '@angular/core';
 import {ContextMenuComponent} from "@perfectmemory/ngx-contextmenu";
-import { ContextMenuServiceService } from 'src/app/services/context-menu-service.service';
+import { ContextMenuServiceService, MenuItemEntry } from 'src/app/services/context-menu-service.service';
 
-export interface MenuItemEntry {
-  id?: number;
-  title: string;
-  action?: ()=>void;
-  children?: MenuItemEntry[];
-};
 
 @Component({
   selector: 'app-custom-context-menu',

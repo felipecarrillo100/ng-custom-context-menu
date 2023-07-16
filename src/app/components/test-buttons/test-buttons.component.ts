@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { ContextMenuServiceService } from 'src/app/services/context-menu-service.service';
-import { MenuItemEntry } from '../custom-context-menu/custom-context-menu.component';
+import { ContextMenuServiceService, MenuItemEntry } from 'src/app/services/context-menu-service.service';
 
 @Component({
   selector: 'app-test-buttons',

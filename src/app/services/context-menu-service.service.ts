@@ -1,8 +1,14 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject } from 'rxjs';
-import { MenuItemEntry } from '../components/custom-context-menu/custom-context-menu.component';
 
-interface MenuItemsResponse {
+export interface MenuItemEntry {
+  id?: number;
+  title: string;
+  action?: ()=>void;
+  children?: MenuItemEntry[];
+};
+
+export interface MenuItemsResponse {
   mainMenu: MenuItemEntry[];
   subMenus: MenuItemEntry[][]
 }
@@ -88,8 +94,6 @@ export class ContextMenuServiceService {
     });
 
   }
-
-
 
   onMenuUpdate(): Observable<MenuItemsResponse> {
     return this._observableMenuItems.asObservable();
