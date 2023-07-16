@@ -10,6 +10,7 @@ import { ContextMenuService, MenuItemEntry } from 'src/app/services/context-menu
 export class CustomContextMenuComponent {
   // @ts-ignore
   @ViewChild('menuTrigger') menuTrigger: ContextMenuComponent;
+  @ViewChild('oneContextMenu') oneContextMenu: any;
 
   // @ts-ignore
   @ViewChildren(ContextMenuComponent) components: QueryList<ContextMenuComponent>
@@ -17,10 +18,12 @@ export class CustomContextMenuComponent {
   private _menuItems: MenuItemEntry[] = [];
   public _menuItemsMain: MenuItemEntry[] = [];
   public _subMenus: MenuItemEntry[][] = [];
+  public value:string = "Main Context Menu";
 
-  public getSubMenu(menu: any) {
-    const item = this.components ? this.components.get(Number(menu.id)) : undefined;
-    // return this.mapContainer;
+  public getSubMenu(menuId:number) {
+    if (!this.components) return this.oneContextMenu;
+    const subMenu = this.components.get(menuId);
+    const item = subMenu ? subMenu : this.oneContextMenu;
     return item;
   }
 

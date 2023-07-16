@@ -13,17 +13,14 @@ export class TestButtonsComponent {
   }
 
   openProgramatically1(e: MouseEvent) {
-    //if (typeof this.menuTrigger !== undefined) this.menuTrigger.open(e);
     this.contextMenuService.openMenuEvent(e, this.menuItems21);
     //this.contextMenuService.openMenuXY(169, 240, this.menuItems21);
   }
 
   openProgramatically2(e: MouseEvent) {
-    //if (typeof this.menuTrigger !== undefined) this.menuTrigger.open(e);
     this.contextMenuService.openMenuEvent(e, this.menuItems22);
     // this.contextMenuService.openMenuXY(320, 240, this.menuItems22);
   }
-
 
   public menuItems21: MenuItemEntry[] = [
     {title: "Cut", action: ()=>{} },

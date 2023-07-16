@@ -18,6 +18,14 @@ export interface MenuItemsResponse {
 export class ContextMenuService {
   private _observableMenuItems = new Subject<MenuItemsResponse>();
 
+
+  private _menuItems: MenuItemEntry[] = [];
+
+  setMenuItems(original: MenuItemEntry[]) {
+    this._menuItems = original;
+    this.preProcess();
+  }
+  
   private _menuTrigger: any;
   setMenuTrigger(menuTrigger: any) {
       this._menuTrigger = menuTrigger;
@@ -26,7 +34,7 @@ export class ContextMenuService {
   openMenuEvent(e: MouseEvent, menuItems: MenuItemEntry[]) {
     e.preventDefault();
     e.stopPropagation();
-    this.menuItems = menuItems;
+    this.setMenuItems(menuItems);
     setTimeout(()=>{
       this._menuTrigger.open(e);
     }, 100)
@@ -34,7 +42,7 @@ export class ContextMenuService {
   }
 
   openMenuXY(x: number, y: number, menuItems: MenuItemEntry[]) {
-    this.menuItems = menuItems;
+    this.setMenuItems(menuItems);
     const event = new MouseEvent('click', {
       view: window,
       bubbles: true,
@@ -49,17 +57,7 @@ export class ContextMenuService {
 
   }
 
-  // @ts-ignore
-  private _menuItems: MenuItemEntry[] = [];
 
-  get menuItems(): MenuItemEntry[] {
-    return this._menuItems;
-  }
-
-  set menuItems(original: MenuItemEntry[]) {
-    this._menuItems = original;
-    this.preProcess();
-  }
   preProcess() {
 
     const menuItemsMain:MenuItemEntry[] = [];
@@ -67,7 +65,7 @@ export class ContextMenuService {
 
     const processItem = (m: MenuItemEntry) => {
       const newItem =
-        {id: undefined  as undefined| number, title: m.title, action: m.action, children: undefined };
+        {id: m.children ? 0 : undefined  as undefined| number, title: m.title, action: m.action, children: undefined };
 
       if (m.children) {
         const newSubMenu: MenuItemEntry[] = [];

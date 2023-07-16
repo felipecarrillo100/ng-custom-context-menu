@@ -1,15 +1,16 @@
-<div class="my-app" #menuTrigger="ngxContextMenu" [contextMenu]="oneContextMenu" ></div>
+<div #menuTrigger="ngxContextMenu" [contextMenu]="oneContextMenu" [contextMenuValue]="value"></div>
 
 <context-menu #oneContextMenu value="main" class="main" value="value1">
   <ng-container *ngFor="let menuItem of _menuItemsMain">
     <ng-template *ngIf="!menuItem.id" contextMenuItem (execute)="executeAction(menuItem)">{{menuItem.title}}</ng-template>
-    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="getSubMenu(menuItem)">{{menuItem.title}}</ng-template>
+<!--    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="menuItem.id===0?oneContextMenu:getSubMenu(menuItem.id)">{{menuItem.title}}</ng-template>-->
+    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="getSubMenu(menuItem.id)">{{menuItem.title}}</ng-template>
   </ng-container>
 </context-menu>
 
 <context-menu *ngFor="let menu of _subMenus">
   <ng-container *ngFor="let menuItem of menu">
     <ng-template *ngIf="!menuItem.id" contextMenuItem (execute)="executeAction(menuItem)">{{menuItem.title}}</ng-template>
-    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="getSubMenu(menuItem)">{{menuItem.title}}</ng-template>
+    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="getSubMenu(menuItem.id)">{{menuItem.title}}</ng-template>
   </ng-container>
 </context-menu>
