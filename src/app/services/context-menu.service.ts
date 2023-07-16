@@ -18,12 +18,8 @@ export interface MenuItemsResponse {
 export class ContextMenuService {
   private _observableMenuItems = new Subject<MenuItemsResponse>();
 
-
-  private _menuItems: MenuItemEntry[] = [];
-
   setMenuItems(original: MenuItemEntry[]) {
-    this._menuItems = original;
-    this.preProcess();
+    this.preProcess(original);
   }
   
   private _menuTrigger: any;
@@ -31,14 +27,20 @@ export class ContextMenuService {
       this._menuTrigger = menuTrigger;
   }
 
+  hasOpen() {
+    return this._menuTrigger.hasOpen();
+  }
+  
+  close() {
+    return this._menuTrigger.close();
+  }
   openMenuEvent(e: MouseEvent, menuItems: MenuItemEntry[]) {
     e.preventDefault();
     e.stopPropagation();
     this.setMenuItems(menuItems);
     setTimeout(()=>{
       this._menuTrigger.open(e);
-    }, 100)
-
+    }, 1)
   }
 
   openMenuXY(x: number, y: number, menuItems: MenuItemEntry[]) {
@@ -53,12 +55,12 @@ export class ContextMenuService {
 
     setTimeout(()=>{
       this._menuTrigger.open(event);
-    }, 100)
+    }, 1)
 
   }
 
 
-  preProcess() {
+  preProcess(original: MenuItemEntry[]) {
 
     const menuItemsMain:MenuItemEntry[] = [];
     const subMenus:MenuItemEntry[][] = [];
@@ -80,8 +82,8 @@ export class ContextMenuService {
       return newItem;
     }
 
-    if (!this._menuItems) return;
-    for (const mItem of this._menuItems) {
+    if (!original) return;
+    for (const mItem of original) {
       const newItem = processItem(mItem);
       menuItemsMain.push(newItem);
     }
