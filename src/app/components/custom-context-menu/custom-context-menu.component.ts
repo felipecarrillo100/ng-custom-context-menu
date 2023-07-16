@@ -1,7 +1,6 @@
 import { Component, Input, QueryList, ViewChildren, ViewChild} from '@angular/core';
 import {ContextMenuComponent} from "@perfectmemory/ngx-contextmenu";
-import { ContextMenuServiceService, MenuItemEntry } from 'src/app/services/context-menu-service.service';
-
+import { ContextMenuService, MenuItemEntry } from 'src/app/services/context-menu.service';
 
 @Component({
   selector: 'app-custom-context-menu',
@@ -29,7 +28,7 @@ export class CustomContextMenuComponent {
     if (typeof menuItem.action === "function") menuItem.action();
   }
 
-  constructor(private contextMenuService: ContextMenuServiceService) {
+  constructor(private contextMenuService: ContextMenuService) {
     contextMenuService.onMenuUpdate().subscribe((v)=>{
       this._menuItemsMain = v.mainMenu;
       this._subMenus = v.subMenus

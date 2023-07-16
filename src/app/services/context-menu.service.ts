@@ -15,7 +15,7 @@ export interface MenuItemsResponse {
 @Injectable({
   providedIn: 'root'
 })
-export class ContextMenuServiceService {
+export class ContextMenuService {
   private _observableMenuItems = new Subject<MenuItemsResponse>();
 
   private _menuTrigger: any;

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ContextMenuServiceService, MenuItemEntry } from 'src/app/services/context-menu-service.service';
+import { ContextMenuService, MenuItemEntry } from 'src/app/services/context-menu.service';
 
 @Component({
   selector: 'app-test-list-component',
@@ -18,7 +18,7 @@ export class TestListComponentComponent {
       {title: "Maybe", action: ()=>{}},
   ];
   
-  constructor(private contextMenuService: ContextMenuServiceService) {
+  constructor(private contextMenuService: ContextMenuService) {
   }
 
 

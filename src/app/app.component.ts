@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChildren} from '@angular/core';
-import { MenuItemEntry } from './services/context-menu-service.service';
+import { MenuItemEntry } from './services/context-menu.service';
 
 
 @Component({
