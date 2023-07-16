@@ -1,0 +1,3 @@
+<ul>
+  <li *ngFor="let l of list" [title]="l.title" (contextmenu)="openContextMenu($event)">{{l.name}}</li>
+</ul>
