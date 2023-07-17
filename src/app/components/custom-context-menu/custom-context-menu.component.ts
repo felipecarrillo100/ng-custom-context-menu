@@ -1,4 +1,4 @@
-import { Component, Input, QueryList, ViewChildren, ViewChild} from '@angular/core';
+import { Component, Input, QueryList, ViewChildren, ViewChild, ContentChild, TemplateRef} from '@angular/core';
 import {ContextMenuComponent} from "@perfectmemory/ngx-contextmenu";
 import { ContextMenuService, MenuItemEntryInternal } from 'src/app/services/context-menu.service';
 
@@ -8,12 +8,16 @@ import { ContextMenuService, MenuItemEntryInternal } from 'src/app/services/cont
   styleUrls: ['./custom-context-menu.component.scss']
 })
 export class CustomContextMenuComponent {
+
+  // @ts-ignore
+  @ContentChild('menuItemTemplate',{static: false}) templateRef: TemplateRef<any>;
+
   @Input()
   public rtl: boolean=false;
 
   @Input()
   public disabled: boolean=false;
-  
+
   @Input()
   public menuClass: string="";
 
@@ -34,10 +38,6 @@ export class CustomContextMenuComponent {
     const subMenu = this.components.get(menuId);
     const item = subMenu ? subMenu : this.oneContextMenu;
     return item;
-  }
-
-  executeAction(menuItem: any) {
-    if (typeof menuItem.action === "function") menuItem.action();
   }
 
   constructor(private contextMenuService: ContextMenuService) {

@@ -14,9 +14,9 @@ export class TestListComponentComponent {
   ]
   private menu: MenuItemEntry[] = [
       {title: "Yes", action: ()=>{} },
-      {title: "No", action: ()=>{}, disabled:true},
+      {title: "No", action: ()=>{}, disabled:true, checkbox:{value: true}},
       {divider: true},
-      {title: "Maybe", action: ()=>{}, disabled: true},
+      {title: "Maybe", action: ()=>{}, disabled: true, checkbox:{value: false}},
   ];
 
   constructor(private contextMenuService: ContextMenuService) {

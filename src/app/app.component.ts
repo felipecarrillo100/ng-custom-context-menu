@@ -11,8 +11,7 @@ export class AppComponent {
   title = 'my-sassy-app';
   public value: string = 'a simple value attached to the context menu';
 
-
-   public menuItems: MenuItemEntryInternal[] = [];
+  public menuItems: MenuItemEntryInternal[] = [];
 
   public execute(s: string, e: any) {
      console.log(s);

@@ -2,26 +2,42 @@
 
 <context-menu #oneContextMenu value="main" class="main" value="value1" [dir]="rtl?'rtl':'ltr'" [disabled]="disabled" [menuClass]="menuClass">
   <ng-container *ngFor="let menuItem of _menuItemsMain">
-    <ng-template *ngIf="!menuItem.submenu" contextMenuItem (execute)="executeAction(menuItem)"
+    <ng-template *ngIf="!menuItem.submenu" contextMenuItem (execute)="menuItem.action && menuItem.action()"
                  [disabled]="menuItem.disabled" [divider]="menuItem.divider" [passive]="menuItem.passive">
-      {{menuItem.title}}
+      <ng-container *ngIf="templateRef" [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{$implicit:menuItem}" />
+      <ng-container *ngIf="!templateRef" >
+        {{menuItem.title}}
+        <input *ngIf="menuItem.checkbox" type="checkbox" [checked]="menuItem.checkbox.value" (checked)="menuItem.action && menuItem.action()">
+      </ng-container>
     </ng-template>
     <ng-template *ngIf="!!menuItem.submenu" contextMenuItem [subMenu]="getSubMenu(menuItem.submenu)"
                  [disabled]="menuItem.disabled" [divider]="menuItem.divider" [passive]="menuItem.passive">
-      {{menuItem.title}}
+      <ng-container *ngIf="templateRef" [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{$implicit:menuItem}" />
+      <ng-container *ngIf="!templateRef" >
+        {{menuItem.title}}
+        <input *ngIf="menuItem.checkbox" type="checkbox" [checked]="menuItem.checkbox.value">
+      </ng-container>
     </ng-template>
   </ng-container>
 </context-menu>
 
 <context-menu *ngFor="let menu of _subMenus">
   <ng-container *ngFor="let menuItem of menu">
-    <ng-template *ngIf="!menuItem.submenu" contextMenuItem (execute)="executeAction(menuItem)"
+    <ng-template *ngIf="!menuItem.submenu" contextMenuItem (execute)="menuItem.action && menuItem.action()"
                  [disabled]="menuItem.disabled" [divider]="menuItem.divider" [passive]="menuItem.passive">
-      {{menuItem.title}}
+      <ng-container *ngIf="templateRef" [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{$implicit:menuItem}" />
+      <ng-container *ngIf="!templateRef" >
+        {{menuItem.title}}
+        <input *ngIf="menuItem.checkbox" type="checkbox" [checked]="menuItem.checkbox.value">
+      </ng-container>
     </ng-template>
     <ng-template *ngIf="!!menuItem.submenu" contextMenuItem [subMenu]="getSubMenu(menuItem.submenu)"
                  [disabled]="menuItem.disabled" [divider]="menuItem.divider" [passive]="menuItem.passive">
-      {{menuItem.title}}
+      <ng-container *ngIf="templateRef" [ngTemplateOutlet]="templateRef" [ngTemplateOutletContext]="{$implicit:menuItem}" />
+      <ng-container *ngIf="!templateRef" >
+        {{menuItem.title}}
+        <input *ngIf="menuItem.checkbox" type="checkbox" [checked]="menuItem.checkbox.value" (checked)="menuItem.action && menuItem.action()">
+      </ng-container>
     </ng-template>
   </ng-container>
 </context-menu>

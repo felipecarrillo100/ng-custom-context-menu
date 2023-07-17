@@ -9,6 +9,8 @@ export interface MenuItemEntryInternal {
   disabled: boolean;
   divider: boolean;
   passive: boolean;
+  checkbox?: {value: boolean};
+  icon?: string;
 };
 
 export type MenuItemEntry = MenuItemEntryWithData | MenuItemEntrySeparator;
@@ -19,6 +21,8 @@ interface MenuItemEntryWithData {
   children?: MenuItemEntry[];
   disabled?: boolean;
   passive?: boolean;
+  checkbox?: {value: boolean}
+  icon?: string;
 };
 
 export interface MenuItemEntrySeparator {
@@ -97,6 +101,8 @@ export class ContextMenuService {
           disabled: m.disabled ? m.disabled : false, 
           divider:false,
           passive: m.passive ? m.passive : false,
+          checkbox: m.checkbox,
+          icon: m.icon
         };
 
       if (m.children) {
