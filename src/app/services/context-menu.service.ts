@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {Observable, Subject } from 'rxjs';
 
 export interface MenuItemEntryInternal {
-  id?: number;
+  submenu?: number;
   title: string;
   action?: ()=>void;
   children?: MenuItemEntryInternal[];
@@ -84,13 +84,15 @@ export class ContextMenuService {
 
     const processItem = (o: MenuItemEntry) => {
       if ((o as MenuItemEntrySeparator).divider) {
-        const separator =
-          {id:  undefined  as undefined| number, title: "", action: ()=>{}, children: undefined, disabled: false, separator: true, passive:false };
+        const separator: MenuItemEntryInternal =
+          {submenu:  undefined, title: "", action: undefined, children: undefined, disabled: true, divider: true, passive:false };
+        return separator;
       }
       const m = o as MenuItemEntryWithData;
       const newItem: MenuItemEntryInternal =
-        { id: m.children ? 0 : undefined  as undefined| number, 
-          title: m.title, action: m.action, 
+        { submenu: m.children ? 0 : undefined, 
+          title: m.title, 
+          action: m.action, 
           children: undefined, 
           disabled: m.disabled ? m.disabled : false, 
           divider:false,
@@ -100,8 +102,9 @@ export class ContextMenuService {
       if (m.children) {
         const newSubMenu: MenuItemEntryInternal[] = [];
         subMenus.push(newSubMenu);
+        // Index to the dynamically created submenu
         const index = subMenus.length;
-        newItem.id = index;
+        newItem.submenu = index;
         for (const child of m.children) {
           const c = processItem(child);
           newSubMenu.push(c);
