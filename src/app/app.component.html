@@ -1,14 +1,14 @@
 <p>Hello World</p>
 <app-custom-context-menu menuClass="my-custom-style" >
-  <ng-template let-menuItem #menuItemTemplate>
-    <div [style]="{display:'inline-block'}">
-      <div [style]="{margin:'0px 4px 0px 2px', display:'inline-block'}">😊</div>
-      <div [style]="{display:'inline-block'}">
-        {{menuItem.title}}
-      </div>
-    </div>
-    <input *ngIf="menuItem.checkbox" type="checkbox" [checked]="menuItem.checkbox.value" (checked)="menuItem.action && menuItem.action()">
-  </ng-template>
+<!--  <ng-template let-menuItem #menuItemTemplate>-->
+<!--    <div [style]="{display:'inline-block'}">-->
+<!--      <div [style]="{margin:'0px 4px 0px 2px', display:'inline-block'}">😊</div>-->
+<!--      <div [style]="{display:'inline-block'}">-->
+<!--        {{menuItem.title}}-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <input *ngIf="menuItem.checkbox" type="checkbox" [checked]="menuItem.checkbox.value" (checked)="menuItem.action && menuItem.action()" [disabled]="menuItem.disabled">-->
+<!--  </ng-template>-->
 </app-custom-context-menu>
 
 <app-test-list-component></app-test-list-component>

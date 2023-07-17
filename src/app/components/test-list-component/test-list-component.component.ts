@@ -16,7 +16,7 @@ export class TestListComponentComponent {
       {title: "Yes", action: ()=>{} },
       {title: "No", action: ()=>{}, disabled:true, checkbox:{value: true}},
       {divider: true},
-      {title: "Maybe", action: ()=>{}, disabled: true, checkbox:{value: false}},
+      {title: "Maybe", action: ()=>{}, checkbox:{value: false}},
   ];
 
   constructor(private contextMenuService: ContextMenuService) {

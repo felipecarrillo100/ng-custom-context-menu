@@ -94,7 +94,7 @@ export class ContextMenuService {
       }
       const m = o as MenuItemEntryWithData;
       const newItem: MenuItemEntryInternal =
-        { submenu: m.children ? 0 : undefined, 
+        { submenu: undefined, 
           title: m.title, 
           action: m.action, 
           children: undefined, 
