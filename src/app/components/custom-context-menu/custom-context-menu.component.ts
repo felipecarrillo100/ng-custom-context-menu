@@ -33,7 +33,8 @@ export class CustomContextMenuComponent {
   public _subMenus: MenuItemEntryInternal[][] = [];
   public value:string = "Main Context Menu";
 
-  public getSubMenu(menuId:number) {
+  public getSubMenu(menuId:number | undefined) {
+    if (typeof menuId === "undefined") return undefined;
     if (!this.components) return this.oneContextMenu;
     const subMenu = this.components.get(menuId);
     const item = subMenu ? subMenu : this.oneContextMenu;

@@ -110,6 +110,7 @@ export class ContextMenuService {
         subMenus.push(newSubMenu);
         // Index to the dynamically created submenu
         const index = subMenus.length;
+        newItem.action = undefined;
         newItem.submenu = index;
         for (const child of m.children) {
           const c = processItem(child);
