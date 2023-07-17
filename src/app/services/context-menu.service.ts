@@ -1,16 +1,34 @@
 import { Injectable } from '@angular/core';
 import {Observable, Subject } from 'rxjs';
 
-export interface MenuItemEntry {
+export interface MenuItemEntryInternal {
   id?: number;
   title: string;
   action?: ()=>void;
-  children?: MenuItemEntry[];
+  children?: MenuItemEntryInternal[];
+  disabled: boolean;
+  divider: boolean;
+  passive: boolean;
 };
 
+export type MenuItemEntry = MenuItemEntryWithData | MenuItemEntrySeparator;
+
+interface MenuItemEntryWithData {
+  title: string;
+  action?: ()=>void;
+  children?: MenuItemEntry[];
+  disabled?: boolean;
+  passive?: boolean;
+};
+
+export interface MenuItemEntrySeparator {
+  divider: true;
+};
+
+
 export interface MenuItemsResponse {
-  mainMenu: MenuItemEntry[];
-  subMenus: MenuItemEntry[][]
+  mainMenu: MenuItemEntryInternal[];
+  subMenus: MenuItemEntryInternal[][]
 }
 @Injectable({
   providedIn: 'root'
@@ -21,7 +39,7 @@ export class ContextMenuService {
   setMenuItems(original: MenuItemEntry[]) {
     this.preProcess(original);
   }
-  
+
   private _menuTrigger: any;
   setMenuTrigger(menuTrigger: any) {
       this._menuTrigger = menuTrigger;
@@ -30,7 +48,7 @@ export class ContextMenuService {
   hasOpen() {
     return this._menuTrigger.hasOpen();
   }
-  
+
   close() {
     return this._menuTrigger.close();
   }
@@ -59,18 +77,28 @@ export class ContextMenuService {
 
   }
 
-
   preProcess(original: MenuItemEntry[]) {
 
-    const menuItemsMain:MenuItemEntry[] = [];
-    const subMenus:MenuItemEntry[][] = [];
+    const menuItemsMain:MenuItemEntryInternal[] = [];
+    const subMenus:MenuItemEntryInternal[][] = [];
 
-    const processItem = (m: MenuItemEntry) => {
-      const newItem =
-        {id: m.children ? 0 : undefined  as undefined| number, title: m.title, action: m.action, children: undefined };
+    const processItem = (o: MenuItemEntry) => {
+      if ((o as MenuItemEntrySeparator).divider) {
+        const separator =
+          {id:  undefined  as undefined| number, title: "", action: ()=>{}, children: undefined, disabled: false, separator: true, passive:false };
+      }
+      const m = o as MenuItemEntryWithData;
+      const newItem: MenuItemEntryInternal =
+        { id: m.children ? 0 : undefined  as undefined| number, 
+          title: m.title, action: m.action, 
+          children: undefined, 
+          disabled: m.disabled ? m.disabled : false, 
+          divider:false,
+          passive: m.passive ? m.passive : false,
+        };
 
       if (m.children) {
-        const newSubMenu: MenuItemEntry[] = [];
+        const newSubMenu: MenuItemEntryInternal[] = [];
         subMenus.push(newSubMenu);
         const index = subMenus.length;
         newItem.id = index;
@@ -87,7 +115,7 @@ export class ContextMenuService {
       const newItem = processItem(mItem);
       menuItemsMain.push(newItem);
     }
-    
+
     this._observableMenuItems.next({
       mainMenu: menuItemsMain,
       subMenus: subMenus

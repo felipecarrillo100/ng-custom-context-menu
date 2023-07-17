@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ContextMenuService, MenuItemEntry } from 'src/app/services/context-menu.service';
+import { ContextMenuService, MenuItemEntry, MenuItemEntryInternal } from 'src/app/services/context-menu.service';
 
 @Component({
   selector: 'app-test-buttons',
@@ -44,6 +44,7 @@ export class TestButtonsComponent {
     {title: "Compile", action: ()=>{} },
     {title: "Run", action: ()=>{}},
     {title: "Debug", action: ()=>{}},
+    {divider: true},
     {title: "Build", action: undefined, children: [
         {title: "Build Project", action: ()=>{} },
         {title: "Rebuild", action: ()=>{}},

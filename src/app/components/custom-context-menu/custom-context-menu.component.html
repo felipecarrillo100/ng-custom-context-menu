@@ -1,16 +1,27 @@
-<div #menuTrigger="ngxContextMenu" [contextMenu]="oneContextMenu" [contextMenuValue]="value"></div>
+<div #menuTrigger="ngxContextMenu" [contextMenu]="oneContextMenu" [contextMenuValue]="value" ></div>
 
-<context-menu #oneContextMenu value="main" class="main" value="value1">
+<context-menu #oneContextMenu value="main" class="main" value="value1" [dir]="rtl?'rtl':'ltr'" [disabled]="disabled" [menuClass]="menuClass">
   <ng-container *ngFor="let menuItem of _menuItemsMain">
-    <ng-template *ngIf="!menuItem.id" contextMenuItem (execute)="executeAction(menuItem)">{{menuItem.title}}</ng-template>
-<!--    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="menuItem.id===0?oneContextMenu:getSubMenu(menuItem.id)">{{menuItem.title}}</ng-template>-->
-    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="getSubMenu(menuItem.id)">{{menuItem.title}}</ng-template>
+    <ng-template *ngIf="!menuItem.id" contextMenuItem (execute)="executeAction(menuItem)"
+                 [disabled]="menuItem.disabled" [divider]="menuItem.divider" [passive]="menuItem.passive">
+      {{menuItem.title}}
+    </ng-template>
+    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="getSubMenu(menuItem.id)"
+                 [disabled]="menuItem.disabled" [divider]="menuItem.divider" [passive]="menuItem.passive">
+      {{menuItem.title}}
+    </ng-template>
   </ng-container>
 </context-menu>
 
 <context-menu *ngFor="let menu of _subMenus">
   <ng-container *ngFor="let menuItem of menu">
-    <ng-template *ngIf="!menuItem.id" contextMenuItem (execute)="executeAction(menuItem)">{{menuItem.title}}</ng-template>
-    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="getSubMenu(menuItem.id)">{{menuItem.title}}</ng-template>
+    <ng-template *ngIf="!menuItem.id" contextMenuItem (execute)="executeAction(menuItem)"
+                 [disabled]="menuItem.disabled" [divider]="menuItem.divider" [passive]="menuItem.passive">
+      {{menuItem.title}}
+    </ng-template>
+    <ng-template *ngIf="!!menuItem.id" contextMenuItem [subMenu]="getSubMenu(menuItem.id)"
+                 [disabled]="menuItem.disabled" [divider]="menuItem.divider" [passive]="menuItem.passive">
+      {{menuItem.title}}
+    </ng-template>
   </ng-container>
 </context-menu>

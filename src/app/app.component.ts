@@ -1,5 +1,5 @@
 import {Component, ElementRef, ViewChildren} from '@angular/core';
-import { MenuItemEntry } from './services/context-menu.service';
+import { MenuItemEntryInternal } from './services/context-menu.service';
 
 
 @Component({
@@ -12,7 +12,7 @@ export class AppComponent {
   public value: string = 'a simple value attached to the context menu';
 
 
-   public menuItems: MenuItemEntry[] = [];
+   public menuItems: MenuItemEntryInternal[] = [];
 
   public execute(s: string, e: any) {
      console.log(s);

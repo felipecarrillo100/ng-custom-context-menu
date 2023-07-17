@@ -14,10 +14,11 @@ export class TestListComponentComponent {
   ]
   private menu: MenuItemEntry[] = [
       {title: "Yes", action: ()=>{} },
-      {title: "No", action: ()=>{}},
-      {title: "Maybe", action: ()=>{}},
+      {title: "No", action: ()=>{}, disabled:true},
+      {divider: true},
+      {title: "Maybe", action: ()=>{}, disabled: true},
   ];
-  
+
   constructor(private contextMenuService: ContextMenuService) {
   }
 
